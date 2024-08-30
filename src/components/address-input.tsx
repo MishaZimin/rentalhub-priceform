@@ -1,28 +1,25 @@
 import React, { useState } from "react";
 import axios from "axios";
-import MapWithMarker from "../map-with-marker";
-import { useStore } from "../../store/useStore";
+import MapWithMarker from "./map-with-marker";
+import { useStore } from "../store/useStore";
 
 interface AddressInputProps {
     onLocationSelect: (lat: number, lng: number) => void;
 }
-
-const shopLocation = {
-    lat: 56.8389261, // Широта магазина
-    lng: 60.6057025, // Долгота магазина
-};
 
 const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
     const [address, setAddress] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
     const [latt, setLat] = useState<number>(1);
     const [lngg, setLng] = useState<number>(1);
+    const [isAddressChecked, setIsAddressChecked] = useState<boolean>(false);
 
     const distance = useStore((state) => state.distance);
-    const setDistance = useStore((state) => state.setDistance);
 
     const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAddress(e.target.value);
+        // Сброс состояния проверки адреса, когда пользователь изменяет поле
+        setIsAddressChecked(false);
     };
 
     const normalizeAddress = (input: string): string => {
@@ -52,7 +49,6 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
     };
 
     const handleGeocode = async () => {
-        console.log(normalizeAddress(address));
         try {
             const response = await axios.get(
                 "https://nominatim.openstreetmap.org/search",
@@ -62,7 +58,6 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
                         format: "json",
                         limit: 1,
                         addressdetails: 1,
-
                         countrycodes: "RU",
                     },
                 }
@@ -70,12 +65,11 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
 
             if (response.data && response.data.length > 0) {
                 const { lat, lon } = response.data[0];
-                setLat(lat);
-                setLng(lon);
-                console.log(latt, lngg);
-
+                setLat(parseFloat(lat));
+                setLng(parseFloat(lon));
                 onLocationSelect(parseFloat(lat), parseFloat(lon));
                 setError(null);
+                setIsAddressChecked(true); // Устанавливаем флаг, что адрес был проверен
             } else {
                 setError("Адрес не найден");
             }
@@ -97,7 +91,7 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
                     value={address}
                     onChange={handleAddressChange}
                     placeholder="Введите адрес в Екатеринбурге"
-                    className="w-full p-2 border"
+                    className="w-full p-2 border rounded-md"
                 />
                 <button
                     type="submit"
@@ -105,22 +99,21 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
                     Проверить адрес
                 </button>
             </form>
-            {latt != 1 && !error && (
+            {error && <p className="mb-2 text-red-500">{error}</p>}
+            {isAddressChecked && latt !== 1 && (
                 <>
-                    <MapWithMarker
-                        latitude={latt}
-                        longitude={lngg}></MapWithMarker>
+                    <div className="rounded-xl">
+                        <MapWithMarker latitude={latt} longitude={lngg} />
+                    </div>
                     <div className="mb-2">
-                        {distance != 0 && (
+                        {distance !== 0 && (
                             <>
-                                <p>Расстояние: {Math.floor(distance)} км</p>
+                                <p>Расстояние: {distance.toFixed(1)} км</p>
                             </>
                         )}
                     </div>
                 </>
             )}
-
-            {error && <p className="mb-2 text-red-500 ">{error}</p>}
         </div>
     );
 };

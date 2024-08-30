@@ -36,8 +36,8 @@ const MapWithMarker: React.FC<MapWithMarkerProps> = ({
     return (
         <MapContainer
             center={position}
-            zoom={13}
-            style={{ height: "400px", width: "100%" }}>
+            zoom={15}
+            className="w-full h-48 rounded-md">
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution=""

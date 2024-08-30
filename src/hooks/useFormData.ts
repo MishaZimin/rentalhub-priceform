@@ -1,24 +1,28 @@
+// hooks/useFormData.ts
 import { useState } from "react";
 
-interface FormData {
+interface FormState {
     timeOfDay: string;
-    distance: string;
     carryUpstairs: boolean;
+    [key: string]: any;
 }
 
 const useFormData = () => {
-    const [formData, setFormData] = useState<FormData>({
-        timeOfDay: "morning",
-        distance: "",
+    const [formData, setFormData] = useState<FormState>({
+        timeOfDay: "",
         carryUpstairs: false,
     });
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, checked } = e.target;
-        setFormData({
-            ...formData,
+    const handleInputChange = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
+        const { name, value, type } = event.target;
+        const checked = (event.target as HTMLInputElement).checked;
+
+        setFormData((prevData) => ({
+            ...prevData,
             [name]: type === "checkbox" ? checked : value,
-        });
+        }));
     };
 
     return {
