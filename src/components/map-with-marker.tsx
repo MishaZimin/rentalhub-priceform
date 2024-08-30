@@ -22,8 +22,16 @@ const MapWithMarker: React.FC<MapWithMarkerProps> = ({
     latitude,
     longitude,
 }) => {
-    // Корректно создаем кортеж из двух чисел
     const position: [number, number] = [latitude, longitude];
+
+    useEffect(() => {
+        const attributionControl = document.querySelector(
+            ".leaflet-control-attribution"
+        ) as HTMLElement;
+        if (attributionControl) {
+            attributionControl.style.display = "none";
+        }
+    }, []);
 
     return (
         <MapContainer
@@ -32,7 +40,7 @@ const MapWithMarker: React.FC<MapWithMarkerProps> = ({
             style={{ height: "400px", width: "100%" }}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                attribution=""
             />
             <CenterMap position={position} />
             <Marker
