@@ -5,19 +5,22 @@ import CarryUpstairsCheckbox from "./components/chekbox.tsx";
 import CalculateButton from "./components/calculate-button.tsx";
 import ResultDisplay from "./components/result.tsx";
 
-import AddressInput from "./components/AddressInput/AddressInput";
-import useFormData from "./hooks/useFormData";
-import calculateCost from "./utils/calculateCost";
+import AddressInput from "./components/AddressInput/AddressInput.tsx";
+import useFormData from "./hooks/useFormData.ts";
+import calculateCost from "./utils/calculateCost.ts";
+import { useStore } from "./store/useStore.ts";
 
 const shopLocation = {
-    lat: 56.8389261,
-    lng: 60.6057025,
+    lat: 56.817676,
+    lng: 60.608335,
 };
 
 const App: React.FC = () => {
     const { formData, handleInputChange } = useFormData();
     const [cost, setCost] = useState<number>(0);
-    const [distance, setDistance] = useState<number>(0);
+    // const [distance, setDistance] = useState<number>(0);
+    const distance = useStore((state) => state.distance);
+    const setDistance = useStore((state) => state.setDistance);
 
     const handleLocationSelect = (lat: number, lng: number) => {
         const R = 6371; // Радиус Земли в километрах
@@ -45,7 +48,7 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="w-[400px] h-auto mx-auto bg-slate-100 mt-20 p-4 rounded-md">
+        <div className="w-[400px] h-auto mx-auto bg-slate-200 mt-20 p-4 rounded-md">
             <TimeOfDaySelector
                 value={formData.timeOfDay}
                 onChange={handleInputChange}
@@ -55,13 +58,6 @@ const App: React.FC = () => {
                 onChange={handleInputChange}
             />
             <AddressInput onLocationSelect={handleLocationSelect} />
-            <div className="mb-2">
-                {distance != 0 && (
-                    <>
-                        <p>Расстояние: {Math.floor(distance)} км</p>
-                    </>
-                )}
-            </div>
 
             <CalculateButton onClick={handleCalculateClick} />
             <ResultDisplay cost={cost} />

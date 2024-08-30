@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import MapWithMarker from "../map-with-marker";
+import { useStore } from "../../store/useStore";
 
 interface AddressInputProps {
     onLocationSelect: (lat: number, lng: number) => void;
@@ -13,6 +15,11 @@ const shopLocation = {
 const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
     const [address, setAddress] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
+    const [latt, setLat] = useState<number>(1);
+    const [lngg, setLng] = useState<number>(1);
+
+    const distance = useStore((state) => state.distance);
+    const setDistance = useStore((state) => state.setDistance);
 
     const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAddress(e.target.value);
@@ -63,7 +70,10 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
 
             if (response.data && response.data.length > 0) {
                 const { lat, lon } = response.data[0];
-                console.log(lat, lon);
+                setLat(lat);
+                setLng(lon);
+                console.log(latt, lngg);
+
                 onLocationSelect(parseFloat(lat), parseFloat(lon));
                 setError(null);
             } else {
@@ -87,15 +97,30 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
                     value={address}
                     onChange={handleAddressChange}
                     placeholder="Введите адрес в Екатеринбурге"
-                    className="border p-2 w-full"
+                    className="w-full p-2 border"
                 />
                 <button
                     type="submit"
-                    className="mt-2 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">
+                    className="p-2 mt-2 mb-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">
                     Проверить адрес
                 </button>
             </form>
-            {error && <p className="text-red-500 mt-2">{error}</p>}
+            {latt != 1 && !error && (
+                <>
+                    <MapWithMarker
+                        latitude={latt}
+                        longitude={lngg}></MapWithMarker>
+                    <div className="mb-2">
+                        {distance != 0 && (
+                            <>
+                                <p>Расстояние: {Math.floor(distance)} км</p>
+                            </>
+                        )}
+                    </div>
+                </>
+            )}
+
+            {error && <p className="mb-2 text-red-500 ">{error}</p>}
         </div>
     );
 };

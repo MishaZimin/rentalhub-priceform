@@ -13,7 +13,7 @@ const TimeOfDaySelector: React.FC<TimeOfDaySelectorProps> = ({
         <>
             <label className="block mb-2">Время суток:</label>
             <div className="flex flex-col justify-between mb-4">
-                <label className="flex  items-center">
+                <label className="flex items-center">
                     <input
                         type="radio"
                         name="timeOfDay"
