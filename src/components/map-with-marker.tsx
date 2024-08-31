@@ -83,12 +83,12 @@ const MapWithMarker: React.FC<MapWithMarkerProps> = ({
             <CenterMap position={position} />
             {position[0] != shopLocation.lat &&
                 position[1] != shopLocation.lng && (
-                    <CustomMarker position={position} label="вы здесь" />
+                    <CustomMarker position={position} label="Вы здесь" />
                 )}
             {/* Используем CustomMarker и передаем label */}
             <CustomMarker
                 position={[shopLocation.lat, shopLocation.lng]}
-                label="мы тут"
+                label="Мы тут"
             />
         </MapContainer>
     );

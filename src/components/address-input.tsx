@@ -104,7 +104,7 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
                             type="text"
                             value={address}
                             onChange={handleAddressChange}
-                            placeholder="мира 19"
+                            placeholder="Мира 19"
                             className="h-10 p-2 pl-3 rounded-lg w-[90%] focus:outline-none focus:border-black border-[2px] border-gray-200 transition duration-200 transform"
                         />
                         <button
@@ -115,7 +115,7 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
                         </button>
                     </div>
                 </form>
-                {error && <p className="mb-2 text-red-500">{error}</p>}
+                {error && <p className="mb-2 text-rose-400">{error}</p>}
                 {latt !== 1 && (
                     <>
                         {!isAddressChecked ? (

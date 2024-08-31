@@ -21,7 +21,7 @@ const TimeOfDaySelector: React.FC<TimeOfDaySelectorProps> = ({
                             value="morning"
                             checked={value === "morning"}
                             onChange={onChange}
-                            className="mr-2 accent-black"
+                            className="mr-2 cursor-pointer accent-black"
                         />
                         Утро
                     </label>
@@ -32,7 +32,7 @@ const TimeOfDaySelector: React.FC<TimeOfDaySelectorProps> = ({
                             value="day"
                             checked={value === "day"}
                             onChange={onChange}
-                            className="mr-2 accent-black"
+                            className="mr-2 cursor-pointer accent-black"
                         />
                         День
                     </label>
@@ -43,7 +43,7 @@ const TimeOfDaySelector: React.FC<TimeOfDaySelectorProps> = ({
                             value="evening"
                             checked={value === "evening"}
                             onChange={onChange}
-                            className="mr-2 accent-black"
+                            className="mr-2 cursor-pointer accent-black"
                         />
                         Вечер
                     </label>
@@ -54,7 +54,7 @@ const TimeOfDaySelector: React.FC<TimeOfDaySelectorProps> = ({
                             value="night"
                             checked={value === "night"}
                             onChange={onChange}
-                            className="mr-2 accent-black"
+                            className="mr-2 cursor-pointer accent-black"
                         />
                         Ночь
                     </label>
