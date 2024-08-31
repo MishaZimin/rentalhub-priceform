@@ -12,7 +12,10 @@ const shopLocation = {
 
 export const useDeliveryCalculator = () => {
     const { formData, handleInputChange } = useFormData();
-    const [cost, setCost] = useState<number>(0);
+    // const [cost, setCost] = useState<number>(0);
+
+    const cost = useStore((state) => state.cost);
+    const setCost = useStore((state) => state.setCost);
 
     const distance = useStore((state) => state.distance);
     const setDistance = useStore((state) => state.setDistance);
@@ -37,7 +40,6 @@ export const useDeliveryCalculator = () => {
 
     return {
         formData,
-        cost,
         distance,
         handleInputChange,
         handleLocationSelect,

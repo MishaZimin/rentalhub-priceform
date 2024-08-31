@@ -15,11 +15,17 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
     const [isAddressChecked, setIsAddressChecked] = useState<boolean>(false);
 
     const distance = useStore((state) => state.distance);
+    const setDistance = useStore((state) => state.setDistance);
+
+    const cost = useStore((state) => state.cost);
+    const setCost = useStore((state) => state.setCost);
 
     const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAddress(e.target.value);
-        // Сброс состояния проверки адреса, когда пользователь изменяет поле
+
         setIsAddressChecked(false);
+        setDistance(0);
+        setCost(0);
     };
 
     const normalizeAddress = (input: string): string => {
@@ -86,16 +92,17 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
+                <span>Введите адрес в Екатеринбурге</span>
                 <input
                     type="text"
                     value={address}
                     onChange={handleAddressChange}
-                    placeholder="Введите адрес в Екатеринбурге"
-                    className="w-full p-2 border rounded-md"
+                    placeholder="мира 19"
+                    className="w-full p-2 mt-2 border rounded-md"
                 />
                 <button
                     type="submit"
-                    className="p-2 mt-2 mb-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                    className="p-2 mt-2 mb-2 text-white transition duration-200 transform bg-gray-500 rounded-md hover:bg-gray-700">
                     Проверить адрес
                 </button>
             </form>

@@ -13,7 +13,7 @@ const CalculateButton: React.FC<CalculateButtonProps> = ({ onClick }) => {
             {distance != 0 && (
                 <button
                     onClick={onClick}
-                    className="w-full p-2 mt-8 text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                    className="w-full p-2 mt-8 text-white transition duration-200 transform bg-gray-500 rounded-md hover:bg-gray-700">
                     Рассчитать
                 </button>
             )}
