@@ -90,38 +90,40 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <span>Введите адрес в Екатеринбурге</span>
-                <input
-                    type="text"
-                    value={address}
-                    onChange={handleAddressChange}
-                    placeholder="мира 19"
-                    className="w-full p-2 mt-2 border rounded-md"
-                />
-                <button
-                    type="submit"
-                    className="p-2 mt-2 mb-2 text-white transition duration-200 transform bg-gray-500 rounded-md hover:bg-gray-700">
-                    Проверить адрес
-                </button>
-            </form>
-            {error && <p className="mb-2 text-red-500">{error}</p>}
-            {isAddressChecked && latt !== 1 && (
-                <>
-                    <div className="rounded-xl">
-                        <MapWithMarker latitude={latt} longitude={lngg} />
-                    </div>
-                    <div className="mb-2">
-                        {distance !== 0 && (
-                            <>
-                                <p>Расстояние: {distance.toFixed(1)} км</p>
-                            </>
-                        )}
-                    </div>
-                </>
-            )}
-        </div>
+        <>
+            <div className="mb-4">
+                <form onSubmit={handleSubmit}>
+                    <span>Введите адрес в Екатеринбурге</span>
+                    <input
+                        type="text"
+                        value={address}
+                        onChange={handleAddressChange}
+                        placeholder="мира 19"
+                        className="w-full p-2 mt-2 border rounded-md"
+                    />
+                    <button
+                        type="submit"
+                        className="p-2 mt-2 mb-2 text-white transition duration-200 transform bg-gray-500 rounded-md hover:bg-gray-700">
+                        Проверить адрес
+                    </button>
+                </form>
+                {error && <p className="mb-2 text-red-500">{error}</p>}
+                {isAddressChecked && latt !== 1 && (
+                    <>
+                        <div className="rounded-xl">
+                            <MapWithMarker latitude={latt} longitude={lngg} />
+                        </div>
+                        <div className="mb-2">
+                            {distance !== 0 && (
+                                <>
+                                    <p>Расстояние: {distance.toFixed(1)} км</p>
+                                </>
+                            )}
+                        </div>
+                    </>
+                )}
+            </div>
+        </>
     );
 };
 
