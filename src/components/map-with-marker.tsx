@@ -1,11 +1,18 @@
-import React, { useRef, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import React, { useEffect } from "react";
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import ReactDOMServer from "react-dom/server";
 
 interface MapWithMarkerProps {
     latitude: number;
     longitude: number;
+}
+
+interface CustomMarkerProps {
+    position: [number, number];
+    label: string;
 }
 
 const shopLocation = {
@@ -21,6 +28,32 @@ const CenterMap: React.FC<{ position: [number, number] }> = ({ position }) => {
     }, [position, map]);
 
     return null;
+};
+
+const CustomMarker: React.FC<CustomMarkerProps> = ({ position, label }) => {
+    const customIcon = L.divIcon({
+        html: ReactDOMServer.renderToString(
+            <>
+                <div className="flex flex-col w-[100px]">
+                    <div className="mx-auto font-bold text-center text-black">
+                        {label}
+                    </div>
+
+                    <div className="w-full mx-auto">
+                        <FaMapMarkerAlt
+                            className="mx-auto"
+                            style={{ color: "black", fontSize: "24px" }}
+                        />
+                    </div>
+                </div>
+            </>
+        ),
+        iconSize: [25, 41],
+        iconAnchor: [50, 42],
+        className: "custom-icon",
+    });
+
+    return <Marker position={position} icon={customIcon} />;
 };
 
 const MapWithMarker: React.FC<MapWithMarkerProps> = ({
@@ -42,36 +75,21 @@ const MapWithMarker: React.FC<MapWithMarkerProps> = ({
         <MapContainer
             center={position}
             zoom={15}
-            className="w-full h-48 rounded-md">
+            className="w-full h-48 rounded-lg">
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution=""
             />
             <CenterMap position={position} />
-            <Marker
-                position={position}
-                icon={L.icon({
-                    iconUrl:
-                        "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                })}>
-                {/* <Popup>
-                    Latitude: {latitude}
-                    <br />
-                    Longitude: {longitude}
-                </Popup> */}
-            </Marker>
-            <Marker
+            {position[0] != shopLocation.lat &&
+                position[1] != shopLocation.lng && (
+                    <CustomMarker position={position} label="вы здесь" />
+                )}
+            {/* Используем CustomMarker и передаем label */}
+            <CustomMarker
                 position={[shopLocation.lat, shopLocation.lng]}
-                icon={L.icon({
-                    iconUrl:
-                        "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                })}></Marker>
+                label="мы тут"
+            />
         </MapContainer>
     );
 };

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import MapWithMarker from "./map-with-marker";
 import { useStore } from "../store/useStore";
-
+import { IoSearch } from "react-icons/io5";
 interface AddressInputProps {
     onLocationSelect: (lat: number, lng: number) => void;
 }
@@ -15,8 +15,8 @@ const shopLocation = {
 const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
     const [address, setAddress] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
-    const [latt, setLat] = useState<number>(1);
-    const [lngg, setLng] = useState<number>(1);
+    const [latt, setLat] = useState<number>(shopLocation.lat);
+    const [lngg, setLng] = useState<number>(shopLocation.lng);
     const [isAddressChecked, setIsAddressChecked] = useState<boolean>(false);
 
     const distance = useStore((state) => state.distance);
@@ -97,20 +97,23 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
     return (
         <>
             <div className="mb-4">
-                <form onSubmit={handleSubmit}>
-                    <span>Введите адрес в Екатеринбурге</span>
-                    <input
-                        type="text"
-                        value={address}
-                        onChange={handleAddressChange}
-                        placeholder="мира 19"
-                        className="w-full p-2 mt-2 border rounded-md"
-                    />
-                    <button
-                        type="submit"
-                        className="p-2 mt-2 mb-2 text-white transition duration-200 transform bg-gray-500 rounded-md hover:bg-gray-700">
-                        Проверить адрес
-                    </button>
+                <form onSubmit={handleSubmit} className="mb-2">
+                    <span className="mb-4">Введите адрес в Екатеринбурге</span>
+                    <div className="relative flex flex-row w-full gap-1 mt-1">
+                        <input
+                            type="text"
+                            value={address}
+                            onChange={handleAddressChange}
+                            placeholder="мира 19"
+                            className="h-10 p-2 pl-3 rounded-lg w-[90%] focus:outline-none focus:border-black border-[2px] border-gray-200 transition duration-200 transform"
+                        />
+                        <button
+                            type="submit"
+                            className="w-10 h-10 p-0 text-black transition duration-200 transform bg-white rounded-lg hover:border-black border-[2px] border-gray-200">
+                            <IoSearch className="mx-auto" />
+                            {/* Проверить адрес */}
+                        </button>
+                    </div>
                 </form>
                 {error && <p className="mb-2 text-red-500">{error}</p>}
                 {latt !== 1 && (

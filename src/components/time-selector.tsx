@@ -12,7 +12,7 @@ const TimeOfDaySelector: React.FC<TimeOfDaySelectorProps> = ({
     return (
         <>
             <div className="ml-[2px] border-0 border-red-700">
-                <label className="block mb-0">Время суток:</label>
+                <label className="block mb-0">Время суток</label>
                 <div className="flex flex-col justify-between mb-4">
                     <label className="flex items-center">
                         <input
@@ -21,7 +21,7 @@ const TimeOfDaySelector: React.FC<TimeOfDaySelectorProps> = ({
                             value="morning"
                             checked={value === "morning"}
                             onChange={onChange}
-                            className="mr-2"
+                            className="mr-2 accent-black"
                         />
                         Утро
                     </label>
@@ -32,7 +32,7 @@ const TimeOfDaySelector: React.FC<TimeOfDaySelectorProps> = ({
                             value="day"
                             checked={value === "day"}
                             onChange={onChange}
-                            className="mr-2"
+                            className="mr-2 accent-black"
                         />
                         День
                     </label>
@@ -43,7 +43,7 @@ const TimeOfDaySelector: React.FC<TimeOfDaySelectorProps> = ({
                             value="evening"
                             checked={value === "evening"}
                             onChange={onChange}
-                            className="mr-2"
+                            className="mr-2 accent-black"
                         />
                         Вечер
                     </label>
@@ -54,7 +54,7 @@ const TimeOfDaySelector: React.FC<TimeOfDaySelectorProps> = ({
                             value="night"
                             checked={value === "night"}
                             onChange={onChange}
-                            className="mr-2"
+                            className="mr-2 accent-black"
                         />
                         Ночь
                     </label>

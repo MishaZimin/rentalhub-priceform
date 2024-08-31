@@ -9,7 +9,7 @@ interface FormState {
 
 const useFormData = () => {
     const [formData, setFormData] = useState<FormState>({
-        timeOfDay: "",
+        timeOfDay: "morning",
         carryUpstairs: false,
     });
 

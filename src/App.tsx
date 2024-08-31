@@ -22,7 +22,7 @@ const App: React.FC = () => {
 
     return (
         <div className="flex w-full bg-white ">
-            <div className="w-[90%] max-w-[400px]  h-auto  mx-auto bg-gray-100 mt-12 mb-12 p-4 rounded-xl">
+            <div className="w-[90%] max-w-[400px] h-auto  mx-auto bg-gray-0 mt-12 mb-12 p-4 rounded-xl border-[2px] border-black">
                 <TimeOfDaySelector
                     value={formData.timeOfDay}
                     onChange={handleInputChange}
@@ -34,7 +34,7 @@ const App: React.FC = () => {
                     onChange={handleInputChange}
                 />
                 <CalculateButton onClick={handleCalculateClick} />
-                <ResultDisplay cost={cost} />
+                {cost != 0 && <ResultDisplay cost={cost} />}
             </div>
         </div>
     );
