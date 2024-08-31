@@ -8,6 +8,11 @@ interface MapWithMarkerProps {
     longitude: number;
 }
 
+const shopLocation = {
+    lat: 56.817676,
+    lng: 60.608335,
+};
+
 const CenterMap: React.FC<{ position: [number, number] }> = ({ position }) => {
     const map = useMap();
 
@@ -52,12 +57,21 @@ const MapWithMarker: React.FC<MapWithMarkerProps> = ({
                     iconAnchor: [12, 41],
                     popupAnchor: [1, -34],
                 })}>
-                <Popup>
+                {/* <Popup>
                     Latitude: {latitude}
                     <br />
                     Longitude: {longitude}
-                </Popup>
+                </Popup> */}
             </Marker>
+            <Marker
+                position={[shopLocation.lat, shopLocation.lng]}
+                icon={L.icon({
+                    iconUrl:
+                        "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                })}></Marker>
         </MapContainer>
     );
 };
