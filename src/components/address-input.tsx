@@ -7,6 +7,11 @@ interface AddressInputProps {
     onLocationSelect: (lat: number, lng: number) => void;
 }
 
+const shopLocation = {
+    lat: 56.817676,
+    lng: 60.608335,
+};
+
 const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
     const [address, setAddress] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
@@ -75,7 +80,7 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
                 setLng(parseFloat(lon));
                 onLocationSelect(parseFloat(lat), parseFloat(lon));
                 setError(null);
-                setIsAddressChecked(true); // Устанавливаем флаг, что адрес был проверен
+                setIsAddressChecked(true);
             } else {
                 setError("Адрес не найден");
             }
@@ -108,11 +113,24 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
                     </button>
                 </form>
                 {error && <p className="mb-2 text-red-500">{error}</p>}
-                {isAddressChecked && latt !== 1 && (
+                {latt !== 1 && (
                     <>
-                        <div className="rounded-xl">
-                            <MapWithMarker latitude={latt} longitude={lngg} />
-                        </div>
+                        {!isAddressChecked ? (
+                            <div className="rounded-xl">
+                                <MapWithMarker
+                                    latitude={shopLocation.lat}
+                                    longitude={shopLocation.lng}
+                                />
+                            </div>
+                        ) : (
+                            <div className="rounded-xl">
+                                <MapWithMarker
+                                    latitude={latt}
+                                    longitude={lngg}
+                                />
+                            </div>
+                        )}
+
                         <div className="mb-2">
                             {distance !== 0 && (
                                 <>
