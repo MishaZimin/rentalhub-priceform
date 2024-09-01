@@ -41,7 +41,7 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({ position, label }) => {
 
                     <div className="w-full mx-auto">
                         <FaMapMarkerAlt
-                            className="mx-auto"
+                            className="mx-auto "
                             style={{ color: "black", fontSize: "24px" }}
                         />
                     </div>
@@ -85,7 +85,6 @@ const MapWithMarker: React.FC<MapWithMarkerProps> = ({
                 position[1] != shopLocation.lng && (
                     <CustomMarker position={position} label="Вы здесь" />
                 )}
-            {/* Используем CustomMarker и передаем label */}
             <CustomMarker
                 position={[shopLocation.lat, shopLocation.lng]}
                 label="Мы тут"

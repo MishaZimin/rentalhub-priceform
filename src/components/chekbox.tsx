@@ -10,13 +10,13 @@ const CarryUpstairsCheckbox: React.FC<CarryUpstairsCheckboxProps> = ({
     onChange,
 }) => {
     return (
-        <label className="block mb-0">
+        <label className="block mb-0 ">
             <input
                 type="checkbox"
                 name="carryUpstairs"
                 checked={checked}
                 onChange={onChange}
-                className="mr-2 accent-black"
+                className="mr-2 cursor-pointer accent-black"
             />
             Нужен занос на этаж
         </label>

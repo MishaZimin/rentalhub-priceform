@@ -19,6 +19,8 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
     const [lngg, setLng] = useState<number>(shopLocation.lng);
     const [isAddressChecked, setIsAddressChecked] = useState<boolean>(false);
 
+    const [shake, setShake] = useState<boolean>(false);
+
     const distance = useStore((state) => state.distance);
     const setDistance = useStore((state) => state.setDistance);
 
@@ -83,9 +85,13 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
                 setIsAddressChecked(true);
             } else {
                 setError("Адрес не найден");
+                setShake(true);
+                setTimeout(() => setShake(false), 500);
             }
         } catch (err) {
             setError("Произошла ошибка при геокодировании");
+            setShake(true);
+            setTimeout(() => setShake(false), 500);
         }
     };
 
@@ -96,9 +102,11 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
 
     return (
         <>
-            <div className="mb-4">
+            <div className="mb-2">
                 <form onSubmit={handleSubmit} className="mb-2">
-                    <span className="mb-4">Введите адрес в Екатеринбурге</span>
+                    <span className="mb-4 font-inter">
+                        Ваш адрес в Екатеринбурге:
+                    </span>
                     <div className="relative flex flex-row w-full gap-1 mt-1">
                         <input
                             type="text"
@@ -111,38 +119,43 @@ const AddressInput: React.FC<AddressInputProps> = ({ onLocationSelect }) => {
                             type="submit"
                             className="w-10 h-10 p-0 text-black transition duration-200 transform bg-white rounded-lg hover:border-black border-[2px] border-gray-200">
                             <IoSearch className="mx-auto" />
-                            {/* Проверить адрес */}
                         </button>
                     </div>
                 </form>
-                {error && <p className="mb-2 text-rose-400">{error}</p>}
+
                 {latt !== 1 && (
                     <>
-                        {!isAddressChecked ? (
-                            <div className="rounded-xl">
-                                <MapWithMarker
-                                    latitude={shopLocation.lat}
-                                    longitude={shopLocation.lng}
-                                />
-                            </div>
-                        ) : (
-                            <div className="rounded-xl">
-                                <MapWithMarker
-                                    latitude={latt}
-                                    longitude={lngg}
-                                />
-                            </div>
-                        )}
+                        <div className={`${shake ? "animate-shake" : ""}`}>
+                            {!isAddressChecked ? (
+                                <div className="rounded-xl">
+                                    <MapWithMarker
+                                        latitude={shopLocation.lat}
+                                        longitude={shopLocation.lng}
+                                    />
+                                </div>
+                            ) : (
+                                <div className="rounded-xl">
+                                    <MapWithMarker
+                                        latitude={latt}
+                                        longitude={lngg}
+                                    />
+                                </div>
+                            )}
+                        </div>
 
-                        <div className="mb-2">
+                        <div className="mb-0">
                             {distance !== 0 && (
                                 <>
-                                    <p>Расстояние: {distance.toFixed(1)} км</p>
+                                    <p className="text-gray-500">
+                                        Расстояние: {distance.toFixed(1)} км
+                                    </p>
                                 </>
                             )}
                         </div>
                     </>
                 )}
+
+                {error && <p className="mb-2 text-rose-400">{error}</p>}
             </div>
         </>
     );
