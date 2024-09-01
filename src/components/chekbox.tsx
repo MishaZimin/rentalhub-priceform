@@ -16,7 +16,7 @@ const CarryUpstairsCheckbox: React.FC<CarryUpstairsCheckboxProps> = ({
                 name="carryUpstairs"
                 checked={checked}
                 onChange={onChange}
-                className="mr-2 cursor-pointer accent-black"
+                className="mr-1 cursor-pointer accent-black"
             />
             Нужен занос на этаж
         </label>

@@ -10,11 +10,15 @@ const shopLocation = {
     lng: 60.608335,
 };
 
+interface FormState {
+    timeOfDay: string;
+    carryUpstairs: boolean;
+    [key: string]: any;
+}
+
 export const useDeliveryCalculator = () => {
     const { formData, handleInputChange } = useFormData();
-    // const [cost, setCost] = useState<number>(0);
 
-    const cost = useStore((state) => state.cost);
     const setCost = useStore((state) => state.setCost);
 
     const distance = useStore((state) => state.distance);

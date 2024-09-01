@@ -8,7 +8,7 @@ interface FormState {
 }
 
 const useFormData = () => {
-    const [formData, setFormData] = useState<FormState>({
+    const [formData, setFormData] = useState<any>({
         timeOfDay: "morning",
         carryUpstairs: false,
     });
@@ -19,7 +19,7 @@ const useFormData = () => {
         const { name, value, type } = event.target;
         const checked = (event.target as HTMLInputElement).checked;
 
-        setFormData((prevData) => ({
+        setFormData((prevData: any) => ({
             ...prevData,
             [name]: type === "checkbox" ? checked : value,
         }));

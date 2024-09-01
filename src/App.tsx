@@ -27,7 +27,6 @@ const App: React.FC = () => {
                     value={formData.timeOfDay}
                     onChange={handleInputChange}
                 />
-
                 <AddressInput onLocationSelect={handleLocationSelect} />
                 <CarryUpstairsCheckbox
                     checked={formData.carryUpstairs}
