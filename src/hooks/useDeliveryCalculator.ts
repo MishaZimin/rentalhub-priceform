@@ -4,11 +4,12 @@ import { useState } from "react";
 import { useStore } from "../store/useStore";
 import calculateCost from "../utils/calculateCost";
 import { calculateDistance } from "../utils/calculateDistance";
+import { shopLocation } from "../utils/constants";
 
-const shopLocation = {
-    lat: 56.817676,
-    lng: 60.608335,
-};
+// const shopLocation = {
+//     lat: 56.817676,
+//     lng: 60.608335,
+// };
 
 interface FormState {
     timeOfDay: string;

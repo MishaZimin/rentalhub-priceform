@@ -9,7 +9,7 @@ interface CustomMarkerProps {
     label: string;
 }
 
-const CustomMarker: React.FC<CustomMarkerProps> = ({ position, label }) => {
+const CustomMarker = ({ position, label }: CustomMarkerProps) => {
     const customIcon = L.divIcon({
         html: ReactDOMServer.renderToString(
             <div className="flex flex-col w-[100px]">

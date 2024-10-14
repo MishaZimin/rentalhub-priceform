@@ -1,4 +1,3 @@
-// utils/calculateDistance.ts
 export const calculateDistance = (
     lat1: number,
     lng1: number,

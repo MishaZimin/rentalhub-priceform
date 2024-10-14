@@ -1,70 +1,45 @@
-import React from "react";
+import RadioButton from "../ui/radio-button.tsx";
 
 interface TimeOfDaySelectorProps {
     value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (e: any) => void;
 }
 
-const TimeOfDaySelector: React.FC<TimeOfDaySelectorProps> = ({
-    value,
-    onChange,
-}) => {
+const TimeOfDaySelector = ({ value, onChange }: TimeOfDaySelectorProps) => {
     return (
-        <>
-            <div className="ml-[2px] border-0 border-red-700 mb-2">
-                <label className="block mb-0 ">Время суток:</label>
-                <div className="flex flex-row gap-10">
-                    <div>
-                        <label className="flex items-center">
-                            <input
-                                type="radio"
-                                name="timeOfDay"
-                                value="morning"
-                                checked={value === "morning"}
-                                onChange={onChange}
-                                className="mr-2 cursor-pointer accent-black"
-                            />
-                            Утро
-                        </label>
-                        <label className="flex items-center">
-                            <input
-                                type="radio"
-                                name="timeOfDay"
-                                value="day"
-                                checked={value === "day"}
-                                onChange={onChange}
-                                className="mr-2 cursor-pointer accent-black"
-                            />
-                            День
-                        </label>
-                    </div>
-                    <div>
-                        <label className="flex items-center">
-                            <input
-                                type="radio"
-                                name="timeOfDay"
-                                value="evening"
-                                checked={value === "evening"}
-                                onChange={onChange}
-                                className="mr-2 cursor-pointer accent-black"
-                            />
-                            Вечер
-                        </label>
-                        <label className="flex items-center">
-                            <input
-                                type="radio"
-                                name="timeOfDay"
-                                value="night"
-                                checked={value === "night"}
-                                onChange={onChange}
-                                className="mr-2 cursor-pointer accent-black"
-                            />
-                            Ночь
-                        </label>
-                    </div>
+        <div className="ml-[2px] flex flex-col gap-[4px]">
+            <label className="block ">Время суток:</label>
+            <div className="flex flex-row gap-10">
+                <div>
+                    <RadioButton
+                        label="Утро"
+                        value="morning"
+                        selectedValue={value}
+                        onChange={onChange}
+                    />
+                    <RadioButton
+                        label="День"
+                        value="day"
+                        selectedValue={value}
+                        onChange={onChange}
+                    />
+                </div>
+                <div>
+                    <RadioButton
+                        label="Вечер"
+                        value="evening"
+                        selectedValue={value}
+                        onChange={onChange}
+                    />
+                    <RadioButton
+                        label="Ночь"
+                        value="night"
+                        selectedValue={value}
+                        onChange={onChange}
+                    />
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

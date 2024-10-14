@@ -11,7 +11,8 @@ const calculateCost = ({
 }: CalculateCostParams): number => {
     const baseCostPerKm = 50;
     const carryUpstairsCost = 200;
-    const distanceCost = baseCostPerKm * (parseInt(distance) || 0);
+    const minCost = 200;
+    const distanceCost = baseCostPerKm * Number(distance);
 
     let timeOfDayMultiplier = 1;
     switch (timeOfDay) {
@@ -27,14 +28,20 @@ const calculateCost = ({
         default:
             timeOfDayMultiplier = 1;
     }
-
     let totalCost = distanceCost * timeOfDayMultiplier;
 
     if (carryUpstairs) {
         totalCost += carryUpstairsCost;
     }
+    console.log(
+        baseCostPerKm,
+        Number(distance),
+        distanceCost,
+        timeOfDayMultiplier,
+        totalCost
+    );
 
-    return Math.round(totalCost);
+    return Math.round(totalCost < minCost ? minCost : totalCost);
 };
 
 export default calculateCost;

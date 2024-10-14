@@ -5,7 +5,7 @@ interface DistanceInputProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const DistanceInput: React.FC<DistanceInputProps> = ({ value, onChange }) => {
+const DistanceInput = ({ value, onChange }: DistanceInputProps) => {
     return (
         <label className="block mb-2">
             Удаленность (км):

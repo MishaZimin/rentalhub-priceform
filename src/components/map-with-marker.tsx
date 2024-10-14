@@ -4,21 +4,14 @@ import "leaflet/dist/leaflet.css";
 import CenterMap from "../components/center-map.tsx";
 import CustomMarker from "../components/custom-marker.tsx";
 import useRemoveAttribution from "../hooks/useRemoveAttribution";
+import { shopLocation } from "../utils/constants";
 
 interface MapWithMarkerProps {
     latitude: number;
     longitude: number;
 }
 
-const shopLocation = {
-    lat: 56.817676,
-    lng: 60.608335,
-};
-
-const MapWithMarker: React.FC<MapWithMarkerProps> = ({
-    latitude,
-    longitude,
-}) => {
+const MapWithMarker = ({ latitude, longitude }: MapWithMarkerProps) => {
     const position: [number, number] = [latitude, longitude];
 
     useRemoveAttribution();

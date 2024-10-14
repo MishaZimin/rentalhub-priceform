@@ -5,7 +5,7 @@ interface CenterMapProps {
     position: [number, number];
 }
 
-const CenterMap: React.FC<CenterMapProps> = ({ position }) => {
+const CenterMap = ({ position }: CenterMapProps) => {
     const map = useMap();
 
     useEffect(() => {

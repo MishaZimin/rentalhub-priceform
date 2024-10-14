@@ -1,3 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    div,
+    p,
+    input,
+    lable,
+    button {
+        @apply font-base leading-[22px] text-graphite;
+    }
+}

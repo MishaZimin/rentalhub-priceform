@@ -5,18 +5,18 @@ interface CarryUpstairsCheckboxProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const CarryUpstairsCheckbox: React.FC<CarryUpstairsCheckboxProps> = ({
+const CarryUpstairsCheckbox = ({
     checked,
     onChange,
-}) => {
+}: CarryUpstairsCheckboxProps) => {
     return (
-        <label className="block mb-0 ">
+        <label className="block ">
             <input
                 type="checkbox"
                 name="carryUpstairs"
                 checked={checked}
                 onChange={onChange}
-                className="mr-1 cursor-pointer accent-black"
+                className="mr-1 transition duration-300 transform cursor-pointer accent-black"
             />
             Нужен занос на этаж
         </label>

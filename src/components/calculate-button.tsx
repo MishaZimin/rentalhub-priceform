@@ -5,7 +5,7 @@ interface CalculateButtonProps {
     onClick: () => void;
 }
 
-const CalculateButton: React.FC<CalculateButtonProps> = ({ onClick }) => {
+const CalculateButton = ({ onClick }: CalculateButtonProps) => {
     const distance = useStore((state) => state.distance);
 
     return (
@@ -13,7 +13,7 @@ const CalculateButton: React.FC<CalculateButtonProps> = ({ onClick }) => {
             {distance != 0 && (
                 <button
                     onClick={onClick}
-                    className="w-full p-2 mt-2 text-black transition duration-200 transform bg-white rounded-lg border-gray-200 hover:border-black border-[2px]">
+                    className="w-full py-[8px] px-[8px] text-black transition duration-300 transform bg-white rounded-lg border-graphite border-opacity-20 hover:border-opacity-40 border-[1px]">
                     Рассчитать
                 </button>
             )}

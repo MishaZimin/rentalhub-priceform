@@ -11,8 +11,9 @@ interface UseGeocodeProps {
 const useGeocode = ({ initialLat, initialLng }: UseGeocodeProps) => {
     const [userMarkerLat, setLat] = useState<number>(initialLat);
     const [userMarkerLng, setLng] = useState<number>(initialLng);
-    const [error, setError] = useState<string | null>(null);
+
     const [isAddressChecked, setIsAddressChecked] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
     const { shake, triggerShake } = useShakeAnimation();
 
     const geocode = async (
@@ -35,9 +36,12 @@ const useGeocode = ({ initialLat, initialLng }: UseGeocodeProps) => {
 
             if (response.data && response.data.length > 0) {
                 const { lat, lon } = response.data[0];
+
                 setLat(parseFloat(lat));
                 setLng(parseFloat(lon));
+
                 onLocationSelect(parseFloat(lat), parseFloat(lon));
+
                 setError(null);
                 setIsAddressChecked(true);
             } else {
